@@ -10,3 +10,6 @@ here is list of deployment files into k8s cluster:
 - k8s-ms-company
 - k8s-ms-employee
 - k8s-ms-project
+
+- the backend is located here: [backend](https://github.com/placidenduwayo1/K8s-AEPC-Back.git)
+- deployment in docker images for the backend: [docker-compose](https://github.com/placidenduwayo1/K8s-AEPC-Docker-Deploy.git)
