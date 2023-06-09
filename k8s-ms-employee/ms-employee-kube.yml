@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-aepc-bs-ms-employee-deploy
+  labels:
+    app: k8s-aepc-bs-ms-employee-pod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8s-aepc-bs-ms-employee-pod
+  template:
+    metadata:
+      labels:
+        app: k8s-aepc-bs-ms-employee-pod
+    spec:
+      containers:
+        - name: k8s-aepc-bs-ms-employee
+          image: placidenduwayo1/k8s-aepc-bs-ms-employee
+          ports:
+            - containerPort: 8283
