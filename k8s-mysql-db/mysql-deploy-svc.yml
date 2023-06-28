@@ -26,7 +26,7 @@ spec:
                 key: mysql-root-mdp
                 name: mysql-db-secret
         ports:
-        - containerPort: 3306
+        - containerPort: 3307
         volumeMounts:
         - name: persistent-storage
           mountPath: /var/lib/mysql
@@ -46,5 +46,5 @@ spec:
     app: k8s-aepc-db-service
   ports:
     - port: 3306
-      targetPort: 3306
+      targetPort: 3307
       protocol: TCP
