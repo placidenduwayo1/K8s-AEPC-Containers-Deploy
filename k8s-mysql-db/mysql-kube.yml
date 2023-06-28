@@ -1,49 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-mysql-deploy
+  name: k8s-aepc-db-service
   labels:
-    app: k8s-mysql-db-pod
+    app: k8s-aepc-db-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: k8s-mysql-db-pod
+      app: k8s-aepc-db-service
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: k8s-mysql-db-pod
+        app: k8s-aepc-db-service
     spec:
       containers:
-      - name: mysql-db
+      - name: k8s-aepc-db-service
         image: mysql:8.0
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
-                key: mysql-root-mot-de-passe
+                key: mysql-root-mdp
                 name: mysql-db-secret
         ports:
         - containerPort: 3306
         volumeMounts:
-        - name: mysql-persistent-storage
+        - name: persistent-storage
           mountPath: /var/lib/mysql
       volumes:
-      - name: mysql-persistent-storage
+      - name: persistent-storage
         persistentVolumeClaim:
           claimName: k8s-mysql-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8s-mysql-db-svc
+  name: k8s-aepc-db-service
   labels:
-    app: mysql-dv-svc
+    app: k8s-aepc-db-service
 spec:
   selector:
-    app: k8s-mysql-db-pod
+    app: k8s-aepc-db-service
   ports:
     - port: 3306
       targetPort: 3306

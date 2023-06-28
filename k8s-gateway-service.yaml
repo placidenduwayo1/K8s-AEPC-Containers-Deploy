@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-aepc-gateway-service
+  labels:
+    app: k8s-aepc-gateway-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: k8s-aepc-gateway-service
+  template:
+    metadata:
+      name: k8s-aepc-gateway-service
+      labels:
+        app: k8s-aepc-gateway-service
+    spec:
+      containers:
+        - name: k8s-aepc-gateway-service
+          image: placidenduwayo1/k8s-aepc-gateway-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8281
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-aepc-gateway-service
+  labels:
+    app: k8s-aepc-gateway-service
+spec:
+  selector:
+    app: k8s-aepc-gateway-service
+  ports:
+    - protocol: TCP
+      port: 8281
+      targetPort: 8281
+      name: 8281-8281
+      nodePort: 30281
+  type: LoadBalancer

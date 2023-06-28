@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-aepc-bs-ms-employee
+  labels:
+    app: k8s-aepc-bs-ms-employee
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: k8s-aepc-bs-ms-employee
+  template:
+    metadata:
+      name: k8s-aepc-bs-ms-employee
+      labels:
+        app: k8s-aepc-bs-ms-employee
+    spec:
+      containers:
+        - name: k8s-aepc-bs-ms-employee
+          image: placidenduwayo1/k8s-aepc-bs-ms-employee
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8283
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-aepc-bs-ms-employee
+  labels:
+    app: k8s-aepc-bs-ms-employee
+spec:
+  selector:
+    app: k8s-aepc-bs-ms-employee
+  ports:
+    - protocol: TCP
+      port: 8283
+      targetPort: 8283
+      nodePort: 30283
+      name: 8283-8283
+  type: LoadBalancer
