@@ -5,7 +5,7 @@ metadata:
   labels:
     app: k8s-aepc-gateway-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: k8s-aepc-gateway-service
@@ -38,4 +38,4 @@ spec:
       targetPort: 8281
       name: 8281-8281
       nodePort: 30281
-  type: LoadBalancer
+  type: NodePort
